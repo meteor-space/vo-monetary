@@ -27,7 +27,6 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
 
   api.use([
-    'coffeescript',
     'check',
     'space:vo-monetary',
     'practicalmeteor:munit@2.1.5',
@@ -36,7 +35,7 @@ Package.onTest(function(api) {
 
   api.add_files([
     'tests/currency.unit.js',
-    'tests/money.unit.coffee',
+    'tests/money.unit.js',
   ]);
 
 });
