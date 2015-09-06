@@ -1,14 +1,15 @@
-
+/**
+ * Currency: A ValueObject that represents a ISO 4217 currency.
+ * EJSON compatible, can be transparently used in Meteor.methods and MongoDB.
+ */
 Currency = Space.messaging.Serializable.extend('Currency', {
 
+  /**
+   * The constructor takes an optional currency code like 'EUR' or 'USD'
+   * If it is not provided the Currency.DEFAULT_CURRENCY will be used.
+   */
   Constructor: function(currency) {
-
-    // Allow to provide another instance of Country as param
-    if(currency instanceof Currency) {
-      // Just use its code
-      currency = currency.code;
-    }
-
+    // The param can be a simple string OR an object like { code: 'EUR' }
     currency = (currency && currency.code) ? currency.code : currency;
 
     if(!Currency.isValid(currency)) {
@@ -16,7 +17,7 @@ Currency = Space.messaging.Serializable.extend('Currency', {
     }
 
     this.code = currency;
-    Object.freeze(this);
+    Object.freeze(this); // Make this Object immutable
   },
 
   toString: function() {
@@ -29,8 +30,10 @@ Currency = Space.messaging.Serializable.extend('Currency', {
 
 });
 
+// Register EJSON type
 Currency.type('Currency');
 
+// Defines the EJSON fields that are automatically serialized
 Currency.fields = {
   code: String
 };

@@ -1,11 +1,20 @@
-
+/**
+ * Money: A ValueObject that represents an amount of a certain Currency.
+ * EJSON compatible, can be transparently used in Meteor.methods and MongoDB.
+ */
 Money = Space.messaging.Serializable.extend('Money', {
 
-  Constructor: function (value, currency) {
+  /**
+   * To create a Money VO you need to provide at least an amount.
+   * If no currency is given the Currency.DEFAULT_CURRENCY is taken.
+   * Supports currency as instances of Currency or simple strings like 'EUR'
+   */
+  Constructor: function (amount, currency) {
 
-    if(typeof(value) === 'object') {
-      value = value.value;
-      currencty = value.currency;
+    // Support creation with a single object like {amount: 1, currency: 'EUR'}
+    if(typeof(amount) === 'object') {
+      amount = amount.amount;
+      currencty = amount.currency;
     }
 
     if(!currency) {
@@ -15,9 +24,9 @@ Money = Space.messaging.Serializable.extend('Money', {
       currency = new Currency(currency);
     }
 
-    // Let Space.messaging.Struct check the arguments!
+    // Let the superclass check the arguments!
     Space.messaging.Serializable.call(this, {
-      value: this._roundNumber(value),
+      amount: this._roundNumber(amount),
       currency: currency
     });
 
@@ -25,24 +34,27 @@ Money = Space.messaging.Serializable.extend('Money', {
   },
 
   equals: function (other) {
-    var isMoney = other instanceof Money;
-    var isEqual = other.value === this.value && other.currency.equals(this.currency);
-    return isMoney && isEqual;
+    return (other instanceof Money) &&
+           (other.amount === this.amount) &&
+           other.currency.equals(this.currency);
   },
 
   valueOf: function() {
-    return this.value;
+    return this.amount;
   },
 
-  _roundNumber: function (value) {
-    return parseFloat(value.toFixed(2));
+  // Rounds numbers to two decimal places
+  _roundNumber: function (amount) {
+    return parseFloat(amount.toFixed(2));
   }
 });
 
+// Register EJSON type
 Money.type('Money');
 
+// Defines the EJSON fields that are automatically serialized
 Money.fields = {
-  value: Number,
+  amount: Number,
   currency: Currency
 };
 
