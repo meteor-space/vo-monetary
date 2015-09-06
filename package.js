@@ -35,7 +35,7 @@ Package.onTest(function(api) {
   ]);
 
   api.add_files([
-    'tests/currency.unit.coffee',
+    'tests/currency.unit.js',
     'tests/money.unit.coffee',
   ]);
 
