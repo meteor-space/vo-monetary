@@ -13,7 +13,7 @@ describe("Money", function() {
       var amount = 5.50;
       var price = new Money(amount, euro);
       expect(price.currency.code).to.equal('EUR');
-      expect(price.value).to.equal(amount);
+      expect(price.amount).to.equal(amount);
     });
 
     it('assumes euro as the default currency if none is given', function() {
@@ -40,7 +40,7 @@ describe("Money", function() {
 
     it('rounds numbers to two floating point precision', function() {
       var money = new Money(1.15555555);
-      expect(money.value).to.equal(1.16);
+      expect(money.amount).to.equal(1.16);
     });
   });
 
