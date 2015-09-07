@@ -1,6 +1,6 @@
-# Value Objects for monetary domains 
+# Value Objects for monetary domains
 
-[![Build Status](https://travis-ci.org/meteor-space/vo-monetary.svg?branch=master)](https://travis-ci.org/meteor-space/vo-monetary) 
+[![Build Status](https://travis-ci.org/meteor-space/vo-monetary.svg?branch=master)](https://travis-ci.org/meteor-space/vo-monetary)
 [![Join the chat at https://gitter.im/meteor-space/general](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/meteor-space/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Installation
@@ -18,7 +18,7 @@ Add unit / integration tests for any new or changed functionality.
 `meteor test-packages ./`
 
 ## Release History
-You can find the release history in the [changelog](https://github.com/SpaceJs/vo-monetary/blob/master/CHANGELOG.md)
+You can find the release history in the [changelog](https://github.com/meteor-space/vo-monetary/blob/master/CHANGELOG.md)
 
 ## License
 Licensed under the MIT license.
