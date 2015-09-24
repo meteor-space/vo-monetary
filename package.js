@@ -3,6 +3,7 @@ Package.describe({
   summary: 'Value Objects for monetary domains.',
   name: 'space:vo-monetary',
   version: '0.1.0',
+  git: 'https://github.com/meteor-space/vo-monetary.git'
 });
 
 Package.onUse(function(api) {
