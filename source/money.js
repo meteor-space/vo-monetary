@@ -14,7 +14,7 @@ Money = Space.messaging.Serializable.extend('Money', {
     // Support creation with a single object like {amount: 1, currency: 'EUR'}
     if(typeof(amount) === 'object') {
       amount = amount.amount;
-      currencty = amount.currency;
+      currency = amount.currency;
     }
 
     if(!currency) {
