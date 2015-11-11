@@ -13,4 +13,4 @@ dependencies:
     - mgp
 test:
   override:
-    - spacejam test-packages ./
+    - ./ci.sh
