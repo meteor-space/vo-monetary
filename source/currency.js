@@ -8,28 +8,39 @@ Currency = Space.domain.ValueObject.extend('Currency', {
    * The constructor takes an optional currency code like 'EUR' or 'USD'
    * If it is not provided the Currency.DEFAULT_CURRENCY will be used.
    */
-  Constructor: function(currency) {
-    // The param can be a simple string OR an object like { code: 'EUR' }
-    currency = (currency && currency.code) ? currency.code : currency;
+  Constructor(currency) {
 
-    if(!Currency.isValid(currency)) {
-      throw new Error(Currency.ERRORS.invalidCurrency(currency));
+    let currencyCode;
+
+    // The param can be a simple string OR an object like { code: 'EUR' }
+    if (typeof currency === 'object') {
+      if (currency.code === undefined) {
+        throw new Error(Currency.ERRORS.invalidCurrencyObject(currency));
+      } else {
+        currencyCode = currency.code;
+      }
+    } else {
+      currencyCode = currency;
     }
 
-    this.code = currency;
+    if (!Currency.isValid(currencyCode)) {
+      throw new Error(Currency.ERRORS.invalidCurrency(currencyCode));
+    }
+
+    this.code = currencyCode;
     Object.freeze(this); // Make this Object immutable
   },
 
   // Defines the EJSON fields that are automatically serialized
-  fields: function() {
+  fields() {
     return {
       code: String
-    }
+    };
   },
 
-  toString: function() {
+  toString() {
     return this.code;
-  },
+  }
 
 });
 
@@ -37,18 +48,17 @@ Currency = Space.domain.ValueObject.extend('Currency', {
 Currency.type('Currency');
 
 Currency.ERRORS = {
-  invalidCurrency: function(code) {
-    return "Invalid currency code '" + code + "' given.";
+  invalidCurrency(code) {
+    return `Invalid currency code '${code}' given.`;
+  },
+  invalidCurrencyObject(object) {
+    return `Invalid currency object, currency object does not have code attribute.`;
   }
-};
-
-Currency.isValid = function(code) {
-  return VALID_CURRENCY_CODES.indexOf(code) > -1;
 };
 
 // ISO 4217, http://en.wikipedia.org/wiki/ISO_4217
 // Data last updated 2015 Oct 20th
-var VALID_CURRENCY_CODES = [
+const VALID_CURRENCY_CODES = [
   'AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM',
   'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD',
   'BTN', 'BWP', 'BYR', 'BZD', 'CAD', 'CDF', 'CHE', 'CHF', 'CHW', 'CLF', 'CLP',
@@ -67,3 +77,9 @@ var VALID_CURRENCY_CODES = [
   'XDR', 'XFU', 'XOF', 'XPD', 'XPF', 'XPT', 'XSU', 'XTS', 'XUA', 'XXX', 'YER',
   'ZAR', 'ZMW'
 ];
+
+Currency.isValid = function(code) {
+  return VALID_CURRENCY_CODES.indexOf(code) > -1;
+};
+
+

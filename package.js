@@ -13,6 +13,7 @@ Package.onUse(function(api) {
 
   api.use([
     'check',
+    'ecmascript',
     'space:messaging@2.0.0',
     'space:domain@0.1.0'
   ]);
