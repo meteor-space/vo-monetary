@@ -1,10 +1,14 @@
 {
+  "space:base": {
+    "git":"https://github.com/meteor-space/base.git",
+    "version": "9ffa935061ed85e9958a1810f77f57932a0cb60a"
+  },
   "space:messaging": {
     "git":"https://github.com/meteor-space/messaging.git",
-    "version": "596f7a96887f84a8a0da0593735008c943a8fedf"
+    "branch": "develop"
   },
   "space:domain": {
     "git":"https://github.com/meteor-space/domain.git",
-    "version": "79bd9ed3da665ac4ec3b94a36911c4abdda859d7"
+    "branch": "feature/align-value-objects-api-with-existing-classes"
   }
 }
