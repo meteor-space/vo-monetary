@@ -1,1 +1,4 @@
 .idea
+.build*
+local-packages.json
+packages
