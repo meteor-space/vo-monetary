@@ -2,7 +2,7 @@
  * Money: A ValueObject that represents an amount of a certain Currency.
  * EJSON compatible, can be transparently used in Meteor.methods and MongoDB.
  */
-Money = Space.messaging.Serializable.extend('Money', {
+Money = Space.domain.ValueObject.extend('Money', {
 
   /**
    * To create a Money VO you need to provide at least an amount.
@@ -33,14 +33,15 @@ Money = Space.messaging.Serializable.extend('Money', {
     Object.freeze(this);
   },
 
-  equals: function (other) {
-    return (other instanceof Money) &&
-           (other.amount === this.amount) &&
-           other.currency.equals(this.currency);
-  },
-
   valueOf: function() {
     return this.amount;
+  },
+
+  fields: function() {
+    return {
+      amount: Number,
+      currency: Currency
+    }
   },
 
   // Rounds numbers to two decimal places
@@ -52,10 +53,6 @@ Money = Space.messaging.Serializable.extend('Money', {
 // Register EJSON type
 Money.type('Money');
 
-// Defines the EJSON fields that are automatically serialized
-Money.fields = {
-  amount: Number,
-  currency: Currency
-};
+
 
 Money.DEFAULT_CURRENCY = 'EUR';
