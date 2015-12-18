@@ -51,7 +51,7 @@ Currency.ERRORS = {
   invalidCurrency(code) {
     return `Invalid currency code '${code}' given.`;
   },
-  invalidCurrencyObject(object) {
+  invalidCurrencyObject() {
     return `Invalid currency object, currency object does not have code attribute.`;
   }
 };
