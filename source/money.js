@@ -25,7 +25,7 @@ Money = Space.domain.ValueObject.extend('Money', {
     }
 
     // Let the superclass check the arguments!
-    Space.messaging.Serializable.call(this, {
+    Space.domain.ValueObject.call(this, {
       amount: this._roundNumber(amount),
       currency: currency
     });
