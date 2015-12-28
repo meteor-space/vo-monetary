@@ -17,8 +17,18 @@ describe('Currency', function() {
     });
 
     it('throws error if invalid currency code is assigned', function() {
-      createInvalidCurrency = function() { new Currency('XX'); };
-      expect(createInvalidCurrency).to.throw("Invalid currency code 'XX' given.");
+     createInvalidCurrency = function() { new Currency('XX'); };
+     expect(createInvalidCurrency).to.throw("Invalid currency code 'XX' given.");
+    });
+
+    it('takes a currency object and assigns it', function() {
+      var currency = new Currency({code: 'EUR'});
+      expect(currency.code).to.equal('EUR');
+    });
+
+    it('throws error if currency object without code attribute is assigned', function() {
+      createInvalidCurrency = function() { new Currency({}); };
+      expect(createInvalidCurrency).to.throw('Invalid currency object, currency object does not have code attribute.');
     });
 
   });
@@ -44,7 +54,7 @@ describe('Currency', function() {
     it('only accepts other instances of Currency', function() {
       expect(new Currency('EUR').equals('EUR')).to.be.false;
     });
-    
+
   });
 
   // =============== IMMUTABILITY ================ //

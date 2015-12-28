@@ -13,12 +13,14 @@ Package.onUse(function(api) {
 
   api.use([
     'check',
-    'space:messaging@1.6.0'
+    'ecmascript',
+    'space:messaging@2.1.0',
+    'space:domain@0.1.0'
   ]);
 
   api.add_files([
     'source/currency.js',
-    'source/money.js',
+    'source/money.js'
   ]);
 
   api.export('Currency');
@@ -31,14 +33,15 @@ Package.onTest(function(api) {
   api.use([
     'check',
     'ejson',
+    'ecmascript',
     'space:vo-monetary',
     'practicalmeteor:munit@2.1.5',
-    'space:testing@1.3.0',
+    'space:testing@2.0.1'
   ]);
 
   api.add_files([
     'tests/currency.unit.js',
-    'tests/money.unit.js',
+    'tests/money.unit.js'
   ]);
 
 });

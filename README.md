@@ -1,6 +1,6 @@
 # Value Objects for monetary domains
 
-[![Build Status](https://travis-ci.org/meteor-space/vo-monetary.svg?branch=master)](https://travis-ci.org/meteor-space/vo-monetary)
+[![Circle CI](https://circleci.com/gh/meteor-space/vo-monetary/tree/feature%2Fimprove-vo-monetary.svg?style=svg)](https://circleci.com/gh/meteor-space/vo-monetary/tree/feature%2Fimprove-vo-monetary)
 [![Join the chat at https://gitter.im/meteor-space/general](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/meteor-space/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Installation
@@ -15,7 +15,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 Add unit / integration tests for any new or changed functionality.
 
 ## Run the tests
-`meteor test-packages ./`
+1. `npm install -g mgp`
+2. `mgp`
+3. `./test.sh`
 
 ## Release History
 You can find the release history in the [changelog](https://github.com/meteor-space/vo-monetary/blob/master/CHANGELOG.md)
