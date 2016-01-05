@@ -14,16 +14,22 @@ Money = Space.domain.ValueObject.extend('Money', {
     // Creation with a single object like {amount: 1, currency: 'EUR'}
     if (arguments.length === 1 && typeof(arguments[0]) === 'object') {
       data = amount;
+      // Calculate amount from base to avoid rounding issues
+      if (data.base && data.decimals) {
+        data.amount = data.base / Math.pow(10, data.decimals);
+      }
     } else {
     // Creation with a params: amount, currency
-      data.amount = this._roundNumber(amount);
+      data.amount = amount;
       data.currency = currency;
     }
     // Allow currency strings like 'EUR'
     if (!(data.currency instanceof Currency)) {
-      data.currency = new Currency(data.currency);
+      data.currency = new Currency(data.currency || Money.DEFAULT_CURRENCY);
     }
-    // Let the superclass check the arguments!
+    data.decimals = this._decimalPlaces(data.amount);
+    data.base = data.amount * Math.pow(10, data.decimals);
+    // Let the superclass check the data!
     Space.domain.ValueObject.call(this, data);
     Object.freeze(this);
   },
@@ -35,13 +41,28 @@ Money = Space.domain.ValueObject.extend('Money', {
   fields() {
     return {
       amount: Number,
+      base: Match.Integer,
+      decimals: Match.Integer,
       currency: Currency
     };
   },
 
-  // Rounds numbers to two decimal places
-  _roundNumber(amount) {
-    return parseFloat(amount.toFixed(2));
+  /**
+   * Returns the number of decimal places of given number.
+   * http://stackoverflow.com/questions/9539513/is-there-a-reliable-way-in-javascript-to-obtain-the-number-of-decimal-places-of
+   */
+  _decimalPlaces(n) {
+    let a = Math.abs(n);
+    let c = a;
+    let count = 1;
+    while (!this._isInteger(c) && isFinite(c)) {
+      c = a * Math.pow(10, count++);
+    }
+    return count - 1;
+  },
+
+  _isInteger(n) {
+    return (typeof n === 'number') && parseFloat(n) === parseInt(n, 10) && !isNaN(n);
   }
 });
 

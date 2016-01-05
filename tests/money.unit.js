@@ -1,17 +1,17 @@
 describe("Money", function() {
 
   it('is serializable', function() {
-    var euro = new Money(10, 'EUR');
-    var copy = EJSON.parse(EJSON.stringify(euro));
+    let euro = new Money(9.9999, 'EUR');
+    let copy = EJSON.parse(EJSON.stringify(euro));
     expect(copy.equals(euro)).to.be.true;
   });
 
   describe('construction', function() {
 
     it('takes a currency and value for construction', function() {
-      var euro = new Currency('EUR');
-      var amount = 5.50;
-      var price = new Money(amount, euro);
+      let euro = new Currency('EUR');
+      let amount = 5.50;
+      let price = new Money(amount, euro);
       expect(price.currency.code).to.equal('EUR');
       expect(price.amount).to.equal(amount);
     });
@@ -21,7 +21,7 @@ describe("Money", function() {
     });
 
     it('requires a value for construction', function() {
-      var euro = new Currency('EUR');
+      let euro = new Currency('EUR');
       expect(function() { new Money(euro); }).to.throw(Error);
     });
 
@@ -38,16 +38,23 @@ describe("Money", function() {
       expect(function() { new Money(5, 'EUR'); }).not.to.throw(Error);
     });
 
-    it('rounds numbers to two floating point precision', function() {
-      var money = new Money(1.15555555);
-      expect(money.amount).to.equal(1.16);
+    it('keeps the floating point precision', function() {
+      let money = new Money(1.15555555);
+      expect(money.amount).to.equal(1.15555555);
     });
+
+    it('uses given base and multiplier to calculate the amount', function() {
+      let first = new Money(9.999);
+      let second = new Money({ base: 9999, decimals: 3 });
+      expect(first.amount).to.equal(second.amount);
+    });
+
   });
 
   describe('using value in calculations', function() {
 
     it('returns its value correctly', function() {
-      var money = new Money(5);
+      let money = new Money(5);
       expect(money + 5).to.equal(10);
     });
 
@@ -56,13 +63,13 @@ describe("Money", function() {
   describe('equality', function() {
 
     it('is equal when value and currency are the same', function() {
-      var money1 = new Money(5, new Currency('EUR'));
-      var money2 = new Money(5, new Currency('EUR'));
+      let money1 = new Money(5, new Currency('EUR'));
+      let money2 = new Money(5, new Currency('EUR'));
       expect(money1.equals(money2)).to.be.true;
     });
 
     it('is not equal if value and currency are not the same', function() {
-      var money1, money2, money3;
+      let money1, money2, money3;
       money1 = new Money(5, new Currency('EUR'));
       money2 = new Money(5, new Currency('USD'));
       money3 = new Money(3, new Currency('EUR'));
