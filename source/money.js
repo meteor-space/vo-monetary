@@ -15,7 +15,7 @@ Money = Space.domain.ValueObject.extend('Money', {
     if (arguments.length === 1 && typeof(arguments[0]) === 'object') {
       data = amount;
       // Calculate amount from base to avoid rounding issues
-      if (data.base && data.decimals) {
+      if (data.base !== undefined && data.decimals !== undefined) {
         this.amount = data.base / Math.pow(10, data.decimals);
       } else {
         check(data.amount, Number);
