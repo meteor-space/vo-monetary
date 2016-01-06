@@ -1,9 +1,12 @@
 describe("Money", function() {
 
   it('is serializable', function() {
-    let euro = new Money(9.9999, 'EUR');
-    let copy = EJSON.parse(EJSON.stringify(euro));
-    expect(copy.equals(euro)).to.be.true;
+    let original = new Money(9.9999, 'EUR');
+    let copy = EJSON.parse(EJSON.stringify(original));
+    expect(copy.base).to.equal(original.base);
+    expect(copy.decimals).to.equal(original.decimals);
+    expect(copy.amount).to.equal(original.amount);
+    expect(copy.currency.code).to.equal(original.currency.code);
   });
 
   describe('construction', function() {
