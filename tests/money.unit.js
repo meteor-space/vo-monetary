@@ -1,11 +1,5 @@
 describe("Money", function() {
 
-  it('is serializable', function() {
-    let euro = new Money(9.9999, 'EUR');
-    let copy = EJSON.parse(EJSON.stringify(euro));
-    expect(copy.equals(euro)).to.be.true;
-  });
-
   describe('construction', function() {
 
     it('takes a currency and value for construction', function() {
@@ -58,6 +52,27 @@ describe("Money", function() {
       expect(money + 5).to.equal(10);
     });
 
+  });
+
+  describe("serialization", function() {
+
+    it('supports decimal places', function() {
+      let original = new Money(9.9999, 'EUR');
+      let copy = EJSON.parse(EJSON.stringify(original));
+      expect(copy.base).to.equal(original.base);
+      expect(copy.decimals).to.equal(original.decimals);
+      expect(copy.amount).to.equal(original.amount);
+      expect(copy.currency.code).to.equal(original.currency.code);
+    });
+
+    it('handles 0 values correctly', function() {
+      let original = new Money(0, 'EUR');
+      let copy = EJSON.parse(EJSON.stringify(original));
+      expect(copy.base).to.equal(original.base);
+      expect(copy.decimals).to.equal(original.decimals);
+      expect(copy.amount).to.equal(original.amount);
+      expect(copy.currency.code).to.equal(original.currency.code);
+    });
   });
 
   describe('equality', function() {
