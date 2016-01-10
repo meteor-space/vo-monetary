@@ -16,24 +16,22 @@ Money = Space.domain.ValueObject.extend('Money', {
       data = amount;
       // Calculate amount from base to avoid rounding issues
       if (data.base !== undefined && data.decimals !== undefined) {
-        this.amount = data.base / Math.pow(10, data.decimals);
+        data.amount = parseInt(data.base, 10) / Math.pow(10, data.decimals);
       } else {
         check(data.amount, Number);
-        this.amount = data.amount;
-        delete data.amount;
       }
     } else {
     // Creation with a params: amount, currency
       check(amount, Number);
-      this.amount = amount;
+      data.amount = amount;
       data.currency = currency;
     }
     // Allow currency strings like 'EUR'
     if (!(data.currency instanceof Currency)) {
       data.currency = new Currency(data.currency || Money.DEFAULT_CURRENCY);
     }
-    data.decimals = this._decimalPlaces(this.amount);
-    data.base = this.amount * Math.pow(10, data.decimals);
+    data.decimals = this._decimalPlaces(data.amount);
+    data.base = (Math.floor(data.amount * Math.pow(10, data.decimals))).toString();
     // Let the superclass check the data!
     Space.domain.ValueObject.call(this, data);
     Object.freeze(this);
@@ -45,7 +43,8 @@ Money = Space.domain.ValueObject.extend('Money', {
 
   fields() {
     return {
-      base: Match.Integer,
+      amount: Number,
+      base: String,
       decimals: Match.Integer,
       currency: Currency
     };
@@ -62,7 +61,7 @@ Money = Space.domain.ValueObject.extend('Money', {
     while (!this._isInteger(c) && isFinite(c)) {
       c = a * Math.pow(10, count++);
     }
-    return count - 1;
+    return Math.min(count - 1, 20);
   },
 
   _isInteger(n) {
