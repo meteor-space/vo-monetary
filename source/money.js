@@ -69,6 +69,6 @@ Money = Space.domain.ValueObject.extend('Money', {
   }
 });
 
-// Register EJSON type
 Money.type('Money');
+
 Money.DEFAULT_CURRENCY = 'EUR';
