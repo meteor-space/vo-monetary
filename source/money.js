@@ -69,6 +69,4 @@ Money = Space.domain.ValueObject.extend('Money', {
   }
 });
 
-Money.type('Money');
-
 Money.DEFAULT_CURRENCY = 'EUR';

@@ -44,8 +44,6 @@ Currency = Space.domain.ValueObject.extend('Currency', {
 
 });
 
-Currency.type('Currency');
-
 Currency.ERRORS = {
   invalidCurrency(code) {
     return `Invalid currency code '${code}' given.`;
