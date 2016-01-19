@@ -44,9 +44,6 @@ Currency = Space.domain.ValueObject.extend('Currency', {
 
 });
 
-// Register EJSON type
-Currency.type('Currency');
-
 Currency.ERRORS = {
   invalidCurrency(code) {
     return `Invalid currency code '${code}' given.`;
