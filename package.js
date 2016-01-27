@@ -9,11 +9,12 @@ Package.describe({
 
 Package.onUse(function(api) {
 
-  api.versionsFrom('METEOR@1.0');
+  api.versionsFrom('1.2.0.1');
 
   api.use([
     'check',
     'ecmascript',
+    'space:base@4.1.0',
     'space:domain@0.1.0'
   ]);
 
@@ -35,7 +36,7 @@ Package.onTest(function(api) {
     'ecmascript',
     'space:vo-monetary',
     'practicalmeteor:munit@2.1.5',
-    'space:testing@2.0.1'
+    'space:testing@3.0.1'
   ]);
 
   api.add_files([
