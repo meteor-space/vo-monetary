@@ -9,11 +9,12 @@ Package.describe({
 
 Package.onUse(function(api) {
 
-  api.versionsFrom('METEOR@1.0');
+  api.versionsFrom('1.2.0.1');
 
   api.use([
     'check',
     'ecmascript',
+    'space:base@4.1.0',
     'space:domain@0.1.0'
   ]);
 
