@@ -2,7 +2,7 @@
 Package.describe({
   name: 'space:vo-monetary',
   summary: 'Value Objects for monetary domains.',
-  version: '0.1.0',
+  version: '0.2.0',
   git: 'https://github.com/meteor-space/vo-monetary.git',
   documentation: 'README.md'
 });
@@ -14,8 +14,7 @@ Package.onUse(function(api) {
   api.use([
     'check',
     'ecmascript',
-    'space:base@4.1.0',
-    'space:domain@0.1.0'
+    'space:domain@0.2.1'
   ]);
 
   api.add_files([
